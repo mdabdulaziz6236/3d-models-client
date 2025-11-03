@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 const Login = () => {
   const navigate = useNavigate()
-  const {signIn} = use(AuthContext)
+  const {signIn,googleSignIn} = use(AuthContext)
   const handleLogin = (event) => {
     event.preventDefault();
       const email= event.target.email.value
@@ -22,7 +22,15 @@ const Login = () => {
       
     })
   };
-  const handleGoogleSignIn = () => {};
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+    .then(()=>{
+      toast.success('SignInWith Google Successfully')
+      navigate('/')
+    }).catch((error)=>{
+      toast.error(error.message)
+    })
+  };
   return (
     <div className="hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">

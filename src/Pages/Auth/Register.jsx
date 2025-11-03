@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 // import toast from "react-hot-toast";
 
 const Register = () => {
-  const { createUser, updateUser } = use(AuthContext);
+  const { createUser, updateUser, googleSignIn } = use(AuthContext);
   const navigate = useNavigate()
   const handleRegister = (event) => {
     event.preventDefault();
@@ -32,7 +32,15 @@ const Register = () => {
         toast.error(error.message);
       });
   };
-  const handleGoogleSignIn = () => {};
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+    .then(()=>{
+      toast.success('SignInWith Google Successfully')
+      navigate('/')
+    }).catch((error)=>{
+      toast.error(error.message)
+    })
+  };
   return (
     <div className="hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">

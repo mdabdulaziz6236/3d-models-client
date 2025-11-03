@@ -4,28 +4,38 @@ import { AuthContext } from "../Context/AuthContext";
 import toast from "react-hot-toast";
 
 const Navbar = () => {
-  const {user ,LogOut}=use(AuthContext)
-  const navigate = useNavigate()
+  const { user, LogOut } = use(AuthContext);
+  const navigate = useNavigate();
   const links = (
     <>
       <li>
-        <NavLink to='/' >Home</NavLink>
+        <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to='/all-models'>All Models</NavLink>
+        <NavLink to="/all-models">All Models</NavLink>
       </li>
       <li>
-        <NavLink to='register'>Register</NavLink>
+        <NavLink to="register">Register</NavLink>
       </li>
+      {user && (
+        <>
+          <li>
+            <NavLink to="/profile">Profile</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
-  const handleLogOut = ()=>{
+  /* Logout */
+  const handleLogOut = () => {
     LogOut()
-    .then(()=>{
-      toast.success('LogOut Successfully')
-    }).catch()
-    navigate('/')
-  }
+      .then(() => {
+        toast.success("LogOut Successfully");
+      })
+      .catch();
+    navigate("/");
+  };
+
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -60,7 +70,15 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-       {user ?  <button onClick={handleLogOut} className="btn">LogOut</button>:  <Link to='login' className="btn">LogIn</Link>}
+        {user ? (
+          <button onClick={handleLogOut} className="btn">
+            LogOut
+          </button>
+        ) : (
+          <Link to="login" className="btn">
+            LogIn
+          </Link>
+        )}
       </div>
     </div>
   );
