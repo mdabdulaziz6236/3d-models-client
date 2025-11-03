@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "login",
-        Component:Login,
+        Component: Login,
       },
     ],
   },
