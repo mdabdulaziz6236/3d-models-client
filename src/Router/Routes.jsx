@@ -9,12 +9,18 @@ import ResetPassword from "../Pages/Auth/ResetPassword";
 import AddModel from "../Pages/AddModel/AddModel";
 import ModelDetails from "../Pages/ModelDetails/ModelDetails";
 import UpdateModel from "../Pages/UpdateModel/UpdateModel";
+import Home from "../Pages/Home/Home";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayOut></MainLayOut>,
     children: [
+      {
+        index:true,
+        Component:Home,
+        loader:()=> fetch('http://localhost:3000/latest-models')
+      },
       {
         path: "all-models",
         Component: AllModels,
