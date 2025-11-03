@@ -14,9 +14,11 @@ const Navbar = () => {
       <li>
         <NavLink to="/all-models">All Models</NavLink>
       </li>
-      <li>
-        <NavLink to="register">Register</NavLink>
-      </li>
+      {!user && (
+        <li>
+          <NavLink to="register">Register</NavLink>
+        </li>
+      )}
       {user && (
         <>
           <li>
