@@ -7,6 +7,7 @@ import Profile from "../Pages/Profile/Profile";
 import UpdateProfile from "../Pages/Profile/UpdateProfile";
 import ResetPassword from "../Pages/Auth/ResetPassword";
 import AddModel from "../Pages/AddModel/AddModel";
+import ModelDetails from "../Pages/ModelDetails/ModelDetails";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,11 @@ export const router = createBrowserRouter([
         path: "all-models",
         Component: AllModels,
         loader:()=> fetch('http://localhost:3000/models')
+      },
+      {
+        path: "model-details/:id",
+        Component: ModelDetails,
+        loader:({params})=> fetch(`http://localhost:3000/models/${params.id}`)
       },
       {
         path: "register",
