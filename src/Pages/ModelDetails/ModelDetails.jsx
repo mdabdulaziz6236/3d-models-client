@@ -1,11 +1,51 @@
 import React from 'react';
-import { Link, useLoaderData } from 'react-router';
+import { Link, useLoaderData, useNavigate } from 'react-router';
+import Swal from 'sweetalert2';
 
 const ModelDetails = () => {
 
     const data = useLoaderData()
+    const navigate = useNavigate()
     const model = data.result
+  /* handleDelete */
+  const handleDelete = ()=>{
 
+    Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+  if (result.isConfirmed) {
+    fetch(`http://localhost:3000/models/${model._id}` ,{
+        method:'DELETE',
+        headers:{
+          'content-type':'application/json'
+        }
+
+    })
+    .then(res => res.json())
+    .then(data =>{
+        console.log(data)
+        navigate('/all-models')
+            Swal.fire({
+      title: "Deleted!",
+      text: "Your file has been deleted.",
+      icon: "success"
+    });
+    }).catch(error =>{
+      console.log(error)
+    })
+
+
+  }
+});
+    console.log('deleted clicked')
+
+  }
 
     return (
             <div className="max-w-5xl mx-auto p-4 md:p-6 lg:p-8">
@@ -43,7 +83,7 @@ const ModelDetails = () => {
               >
                 Update Model
               </Link>
-              <button  className="btn btn-outline rounded-full border-gray-300 hover:border-pink-500 hover:text-pink-600">
+              <button onClick={handleDelete} className="btn btn-outline rounded-full border-gray-300 hover:border-pink-500 hover:text-pink-600">
                 Delete
               </button>
             </div>

@@ -37,6 +37,7 @@ const UpdateModel = () => {
         console.log(error);
       });
   };
+
   return (
     <div className="min-h-screen flex justify-center items-center">
       <div className="w-full  max-w-lg mx-auto bg-gradient-to-br from-indigo-50 to-purple-100 border border-gray-200 shadow-xl rounded-3xl overflow-hidden">
@@ -121,7 +122,7 @@ const UpdateModel = () => {
 
             {/* Upload Button */}
             <div className="pt-4">
-              <button
+              <button 
                 type="submit"
                 className="w-full btn text-white rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 flex items-center justify-center gap-2"
               >
