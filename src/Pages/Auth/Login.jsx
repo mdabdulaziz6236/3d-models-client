@@ -1,14 +1,26 @@
-import React from "react";
-import { Link } from "react-router";
+import React, { use } from "react";
+import { Link, useNavigate } from "react-router";
+import { AuthContext } from "../../Context/AuthContext";
+import toast from "react-hot-toast";
 
 const Login = () => {
+  const navigate = useNavigate()
+  const {signIn} = use(AuthContext)
   const handleLogin = (event) => {
     event.preventDefault();
-    const newUser = {
-      email: event.target.email.value,
-      password: event.target.password.value,
-    };
-    console.log(newUser);
+      const email= event.target.email.value
+      const password= event.target.password.value
+    signIn(email,password)
+    .then((userCredential)=>{
+      const user = userCredential.user
+      console.log(user)
+      toast.success('Sign In Successfully')
+      navigate('/')
+      event.target.reset()
+    }).catch((error )=>{
+      toast.error(error.message)
+      
+    })
   };
   const handleGoogleSignIn = () => {};
   return (
