@@ -4,32 +4,33 @@ import { AuthContext } from "../../Context/AuthContext";
 import toast from "react-hot-toast";
 
 const Login = () => {
-  const navigate = useNavigate()
-  const {signIn,googleSignIn} = use(AuthContext)
+  const navigate = useNavigate();
+  const { signIn, googleSignIn } = use(AuthContext);
   const handleLogin = (event) => {
     event.preventDefault();
-      const email= event.target.email.value
-      const password= event.target.password.value
-    signIn(email,password)
-    .then((userCredential)=>{
-      const user = userCredential.user
-      console.log(user)
-      toast.success('Sign In Successfully')
-      navigate('/')
-      event.target.reset()
-    }).catch((error )=>{
-      toast.error(error.message)
-      
-    })
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    signIn(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+        toast.success("Sign In Successfully");
+        navigate("/");
+        event.target.reset();
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
   const handleGoogleSignIn = () => {
     googleSignIn()
-    .then(()=>{
-      toast.success('SignInWith Google Successfully')
-      navigate('/')
-    }).catch((error)=>{
-      toast.error(error.message)
-    })
+      .then(() => {
+        toast.success("SignInWith Google Successfully");
+        navigate("/");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
   return (
     <div className="hero min-h-screen">
@@ -57,6 +58,15 @@ const Login = () => {
                   className="input"
                   placeholder="Password"
                 />
+                {/* forget password option */}
+                <div>
+                  <Link to='/reset-password'
+                    
+                    className="hover:text-pink-500 text-green-500 font-bold hover:underline"
+                  >
+                    Forget Password ?
+                  </Link>
+                </div>
                 <button type="submit" className="btn btn-neutral mt-4">
                   LogIn
                 </button>
