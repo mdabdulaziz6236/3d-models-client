@@ -6,6 +6,7 @@ import Login from "../Pages/Auth/Login";
 import Profile from "../Pages/Profile/Profile";
 import UpdateProfile from "../Pages/Profile/UpdateProfile";
 import ResetPassword from "../Pages/Auth/ResetPassword";
+import AddModel from "../Pages/AddModel/AddModel";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
       {
         path: "reset-password",
         Component: ResetPassword,
+      },
+      {
+        path: "add-model",
+        Component: AddModel,
       },
     ],
   },

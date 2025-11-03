@@ -24,6 +24,9 @@ const Navbar = () => {
           <li>
             <NavLink to="/profile">Profile</NavLink>
           </li>
+          <li>
+            <NavLink to="/add-model">Add Model</NavLink>
+          </li>
         </>
       )}
     </>
