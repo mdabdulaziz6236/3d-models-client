@@ -10,6 +10,7 @@ import AddModel from "../Pages/AddModel/AddModel";
 import ModelDetails from "../Pages/ModelDetails/ModelDetails";
 import UpdateModel from "../Pages/UpdateModel/UpdateModel";
 import Home from "../Pages/Home/Home";
+import PrivetRoutes from "./PrivetRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -28,8 +29,9 @@ export const router = createBrowserRouter([
       },
       {
         path: "model-details/:id",
-        Component: ModelDetails,
-        loader:({params})=> fetch(`http://localhost:3000/models/${params.id}`)
+        element:<PrivetRoutes>
+          <ModelDetails></ModelDetails>
+        </PrivetRoutes>,
       },
       {
         path: "update-model/:id",
@@ -50,7 +52,9 @@ export const router = createBrowserRouter([
       },
       {
         path: "update-profile",
-        Component: UpdateProfile,
+        element: <PrivetRoutes>
+          <UpdateProfile></UpdateProfile>
+        </PrivetRoutes>
       },
       {
         path: "reset-password",

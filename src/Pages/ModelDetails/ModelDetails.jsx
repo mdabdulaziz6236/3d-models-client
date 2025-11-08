@@ -1,12 +1,29 @@
-import React from 'react';
-import { Link, useLoaderData, useNavigate } from 'react-router';
+import React, { use, useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router';
 import Swal from 'sweetalert2';
+import Loading from '../Loading/Loading';
+import { AuthContext } from '../../Context/AuthContext';
 
 const ModelDetails = () => {
-
-    const data = useLoaderData()
     const navigate = useNavigate()
-    const model = data.result
+    const {user} = use(AuthContext)
+    const {id} = useParams()
+    const [model, setModel]= useState({})
+    const [loading,setLoading]= useState(true)
+    console.log(id)
+    useEffect(()=>{
+      fetch(`http://localhost:3000/models/${id}`,{
+        headers:{
+          authorization: `Bearer ${user.accessToken}`
+        }
+      },).then(res =>res.json())
+      .then(data => {
+        console.log(data.result)
+        setModel(data.result)
+        setLoading(false)
+      })
+
+    },[id,user])
   /* handleDelete */
   const handleDelete = ()=>{
 
@@ -47,6 +64,9 @@ const ModelDetails = () => {
 
   }
 
+  if(loading){
+    return <Loading></Loading>
+  }
     return (
             <div className="max-w-5xl mx-auto p-4 md:p-6 lg:p-8">
       <div className="card bg-base-100 shadow-xl border border-gray-200 rounded-2xl overflow-hidden">
@@ -76,7 +96,7 @@ const ModelDetails = () => {
             </p>
 
             {/* Optional: Action Buttons */}
-            <div className="flex gap-3 mt-6">
+            <div className="flex  gap-3 mt-6">
               <Link
                 to={`/update-model/${model._id}`}
                 className="btn btn-primary rounded-full bg-linear-to-r from-pink-500 to-red-600 text-white border-0 hover:from-pink-600 hover:to-red-700"
