@@ -12,6 +12,7 @@ import UpdateModel from "../Pages/UpdateModel/UpdateModel";
 import Home from "../Pages/Home/Home";
 import PrivetRoutes from "./PrivetRoutes";
 import MyModels from "../Pages/MyModels/MyModels";
+import MyDownloads from "../Pages/MyDownloads/MyDownloads";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +42,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivetRoutes>
             <MyModels></MyModels>
+          </PrivetRoutes>
+        ),
+      },
+      {
+        path: "my-downloads",
+        element: (
+          <PrivetRoutes>
+            <MyDownloads></MyDownloads>
           </PrivetRoutes>
         ),
       },

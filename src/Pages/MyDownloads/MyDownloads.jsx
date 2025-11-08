@@ -1,16 +1,16 @@
-import React, { use, useEffect, useState } from "react";
-import { AuthContext } from "../../Context/AuthContext";
-import Loading from "../Loading/Loading";
-import { ModelCard } from "../../Components/ModelCard";
+import React, { use, useEffect, useState } from 'react';
+import { AuthContext } from '../../Context/AuthContext';
+import Loading from '../Loading/Loading';
+import { ModelCard } from '../../Components/ModelCard';
 
-const MyModels = () => {
-  const { user } = use(AuthContext);
+const MyDownloads = () => {
+   const { user } = use(AuthContext);
   const [model, setModel] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (!user?.email) return;
     setLoading(true);
-    fetch(`http://localhost:3000/my-models?email=${user.email}`,{
+    fetch(`http://localhost:3000/my-downloads?email=${user.email}`,{
         headers:{
             authorization:`Bearer ${user.accessToken}`
         }
@@ -33,4 +33,4 @@ const MyModels = () => {
   );
 };
 
-export default MyModels;
+export default MyDownloads;
