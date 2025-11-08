@@ -11,6 +11,7 @@ import ModelDetails from "../Pages/ModelDetails/ModelDetails";
 import UpdateModel from "../Pages/UpdateModel/UpdateModel";
 import Home from "../Pages/Home/Home";
 import PrivetRoutes from "./PrivetRoutes";
+import MyModels from "../Pages/MyModels/MyModels";
 
 export const router = createBrowserRouter([
   {
@@ -18,25 +19,38 @@ export const router = createBrowserRouter([
     element: <MainLayOut></MainLayOut>,
     children: [
       {
-        index:true,
-        Component:Home,
-        loader:()=> fetch('http://localhost:3000/latest-models')
+        index: true,
+        Component: Home,
+        loader: () => fetch("http://localhost:3000/latest-models"),
       },
       {
         path: "all-models",
         Component: AllModels,
-        loader:()=> fetch('http://localhost:3000/models')
+        loader: () => fetch("http://localhost:3000/models"),
       },
       {
         path: "model-details/:id",
-        element:<PrivetRoutes>
-          <ModelDetails></ModelDetails>
-        </PrivetRoutes>,
+        element: (
+          <PrivetRoutes>
+            <ModelDetails></ModelDetails>
+          </PrivetRoutes>
+        ),
+      },
+      {
+        path: "my-models",
+        element: (
+          <PrivetRoutes>
+            <MyModels></MyModels>
+          </PrivetRoutes>
+        ),
       },
       {
         path: "update-model/:id",
-        Component: UpdateModel,
-        loader:({params})=> fetch(`http://localhost:3000/models/${params.id}`)
+        element: (
+          <PrivetRoutes>
+            <UpdateModel></UpdateModel>
+          </PrivetRoutes>
+        ),
       },
       {
         path: "register",
@@ -52,9 +66,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "update-profile",
-        element: <PrivetRoutes>
-          <UpdateProfile></UpdateProfile>
-        </PrivetRoutes>
+        element: (
+          <PrivetRoutes>
+            <UpdateProfile></UpdateProfile>
+          </PrivetRoutes>
+        ),
       },
       {
         path: "reset-password",

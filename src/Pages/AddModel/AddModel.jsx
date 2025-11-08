@@ -1,6 +1,7 @@
 import { FolderPlus, ImageIcon, Upload } from "lucide-react";
 import React, { use } from "react";
 import { AuthContext } from "../../Context/AuthContext";
+import toast from "react-hot-toast";
 
 const AddModel = () => {
   const { user } = use(AuthContext);
@@ -19,11 +20,13 @@ const AddModel = () => {
         method: 'POST',
         headers:{
             'content-type': 'application/json',
+            authorization:`Bearer ${user.accessToken}`,
         },body:JSON.stringify(formData)
     })
     .then((res)=>res.json())
     .then(data =>{
         console.log(data)
+        toast.success('Card Added Successfully.')
         event.target.reset()
     }).catch(error =>{
         console.log(error)

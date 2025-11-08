@@ -1,13 +1,26 @@
 import { FolderPlus, ImageIcon, Upload } from "lucide-react";
-import React, { use } from "react";
+import React, { use, useEffect, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext";
-import { useLoaderData } from "react-router";
 import toast from "react-hot-toast";
+import { useParams } from "react-router";
+import Loading from "../Loading/Loading";
 
 const UpdateModel = () => {
   const { user } = use(AuthContext);
-  const data = useLoaderData();
-  const model = data.result;
+  const {id} =useParams()
+const [model ,setModel]= useState({})
+const [loading,setLoading]=useState(true)
+useEffect(()=>{
+   fetch(`http://localhost:3000/models/${id}`,{
+    headers:{
+      authorization: `Bearer ${user.accessToken}`
+    }
+   }).then(res => res.json())
+   .then(data =>{
+    setModel(data.result)
+    setLoading(false)
+   })
+},[id,user])
   console.log(model);
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -37,7 +50,9 @@ const UpdateModel = () => {
         console.log(error);
       });
   };
-
+if(loading){
+  return <Loading></Loading>
+}
   return (
     <div className="min-h-screen flex justify-center items-center">
       <div className="w-full  max-w-lg mx-auto bg-gradient-to-br from-indigo-50 to-purple-100 border border-gray-200 shadow-xl rounded-3xl overflow-hidden">
