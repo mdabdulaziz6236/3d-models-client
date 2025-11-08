@@ -83,6 +83,12 @@ const ModelDetails = () => {
               >
                 Update Model
               </Link>
+              {/* download btn */}
+              <Link
+                className="btn btn-primary rounded-full bg-linear-to-r from-green-500 to-purple-600 text-white border-0 hover:from-pink-600 hover:to-blue-700"
+              >
+                Download
+              </Link>
               <button onClick={handleDelete} className="btn btn-outline rounded-full border-gray-300 hover:border-pink-500 hover:text-pink-600">
                 Delete
               </button>
