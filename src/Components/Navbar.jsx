@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React, { use, useEffect, useState } from "react";
 import { FaGear, FaUser } from "react-icons/fa6";
 import { IoLogIn, IoLogOut } from "react-icons/io5";
 import { Link, NavLink, useNavigate } from "react-router";
@@ -7,7 +7,14 @@ import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { user, LogOut } = use(AuthContext);
+  const [theme,setTheme]= useState(localStorage.getItem('theme') || 'light')
   const navigate = useNavigate();
+  useEffect(()=>{
+    const html = document.querySelector('html')
+    html.setAttribute("data-theme",theme)
+    localStorage.setItem('theme',theme)
+
+  },[theme])
   const links = (
     <>
       <li>
@@ -42,6 +49,10 @@ const Navbar = () => {
       })
       .catch();
   };
+    const handleTheme = (checked) => {
+    setTheme(checked ? "dark" : "light");
+  };
+
 
   return (
     <div className="navbar bg-base-100 shadow-sm">
@@ -118,11 +129,6 @@ const Navbar = () => {
                 </Link>
               </li>
 
-              {/* <input
-           onChange={(e)=> handleTheme(e.target.checked)}
-           type="checkbox"
-           defaultChecked={localStorage.getItem('theme') === "dark"}
-           className="toggle"/> */}
               
               <li>
                 <a>
@@ -130,6 +136,12 @@ const Navbar = () => {
                   <FaGear /> Settings
                 </a>
               </li>
+               <input
+           onChange={(e) => handleTheme(e.target.checked)}
+           type="checkbox"
+           defaultChecked={localStorage.getItem('theme') === "dark"}
+           className="toggle"/>
+
               <li>
                 <button
                   onClick={handleLogOut}
